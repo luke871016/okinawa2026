@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>沖繩 2026 ✈️</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F0F6;
+    --card: #ffffff;
+    --primary: #385F71;
+    --primary-light: #dde8ed;
+    --coral: #8F754F;
+    --coral-light: #ede5d8;
+    --green: #2B4162;
+    --green-light: #d8dfe8;
+    --ink: #1e2a35;
+    --muted: #7a8e9a;
+    --border: #ddd6d0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body { font-family: 'Noto Sans TC', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; overflow-x: hidden; }
+
+  /* HERO */
+  .hero { background: linear-gradient(145deg, #2B4162 0%, #385F71 60%, #2f5568 100%); padding: 1.2rem 1.5rem 1.6rem; text-align: center; position: relative; }
+  .hero::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 20px; background: #F5F0F6; border-radius: 50% 50% 0 0 / 100% 100% 0 0; }
+  .hero h1 { font-size: 1.5rem; font-weight: 700; color: #F5F0F6; line-height: 1.2; margin-bottom: 0.5rem; letter-spacing: 0.05em; }
+  .hero-pill { font-size: 0.72rem; color: rgba(245,240,246,0.7); font-weight: 400; margin-top: 0.3rem; }
+
+  /* TAB BAR */
+  .tab-bar-wrap { background: #F5F0F6; padding: 1rem 0 0; position: sticky; top: 0; z-index: 50; box-shadow: 0 2px 10px rgba(43,65,98,0.10); }
+  .tab-bar { display: flex; overflow-x: auto; scrollbar-width: none; padding: 0 1rem 0.8rem; gap: 0.5rem; }
+  .tab-bar::-webkit-scrollbar { display: none; }
+  .tab-btn { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 0.12rem; padding: 0.5rem 0.75rem; border-radius: 12px; border: 1.5px solid var(--border); background: var(--card); cursor: pointer; transition: all 0.18s; min-width: 52px; }
+  .tab-btn .dn { font-size: 0.58rem; font-weight: 700; color: var(--muted); letter-spacing: 0.05em; }
+  .tab-btn .de { font-size: 1.1rem; line-height: 1.2; }
+  .tab-btn .dd { font-size: 0.56rem; color: var(--muted); }
+  .tab-btn.active { background: var(--primary); border-color: var(--primary); box-shadow: 0 4px 12px rgba(56,95,113,0.35); }
+  .tab-btn.active .dn, .tab-btn.active .dd { color: rgba(255,255,255,0.8); }
+  .tab-btn.tc.active { background: var(--coral); border-color: var(--coral); box-shadow: 0 4px 12px rgba(143,117,79,0.35); }
+  .tab-btn.tg.active { background: var(--green); border-color: var(--green); box-shadow: 0 4px 12px rgba(43,65,98,0.35); }
+  .tab-btn.ty.active { background: #8F754F; border-color: #8F754F; box-shadow: 0 4px 12px rgba(143,117,79,0.35); }
+  .tab-btn .ty-label { color: #8F754F; }
+  .tab-btn.ty.active .dn, .tab-btn.ty.active .dd, .tab-btn.ty.active .ty-label { color: rgba(255,255,255,0.9); }
+
+  /* PAGES */
+  .pages { padding: 1rem 1rem 9rem; background: #F5F0F6; }
+  .page { display: none; background: #F5F0F6; }
+  .page.active { display: block; animation: fadeIn 0.2s ease; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+  /* DAY HERO */
+  .day-hero { border: 1.5px solid var(--border); border-radius: 16px; padding: 1.2rem 1.3rem 1rem; margin-bottom: 0.8rem; background: var(--primary-light); }
+  .day-hero.ct { background: var(--coral-light); border-color: #c9b08a; }
+  .day-hero.gt { background: var(--green-light); border-color: #9aaec4; }
+  .day-hero.yt { background: #ede5d8; border-color: #D7B377; }
+  .day-tag { display: inline-flex; align-items: center; background: var(--primary); color: white; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; padding: 0.2rem 0.6rem; border-radius: 6px; margin-bottom: 0.55rem; }
+  .day-tag.ct { background: var(--coral); }
+  .day-tag.gt { background: var(--green); }
+  .day-tag.yt { background: #8F754F; }
+  .day-title { font-size: 1.2rem; font-weight: 700; line-height: 1.3; margin-bottom: 0.15rem; }
+  .day-sub { font-size: 0.75rem; color: var(--muted); }
+
+  /* ABSTRACT */
+  .abstract { background: var(--card); border: 1.5px solid var(--border); border-left: 3px solid var(--primary); border-radius: 0 10px 10px 0; padding: 0.8rem 1rem; margin-bottom: 0.8rem; font-size: 0.82rem; line-height: 1.7; color: #3a4d5a; }
+  .abstract.ct { border-left-color: var(--coral); }
+  .abstract.gt { border-left-color: var(--green); }
+  .abstract ul { list-style: none; margin-top: 0.25rem; }
+  .abstract ul li::before { content: '· '; color: var(--primary); font-weight: 700; }
+  .abstract.ct ul li::before { color: var(--coral); }
+
+  /* CARD */
+  .card { background: var(--card); border: 1.5px solid var(--border); border-radius: 14px; padding: 1rem 1.1rem; margin-bottom: 0.7rem; width: 100%; box-sizing: border-box; }
+  .card-title { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.7rem; }
+
+  /* TIMELINE */
+  .timeline { display: flex; flex-direction: column; }
+  .tl-item { display: flex; gap: 0.75rem; align-items: flex-start; padding-bottom: 0.75rem; }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-left { display: flex; flex-direction: column; align-items: center; width: 36px; flex-shrink: 0; }
+  .tl-time { font-size: 0.65rem; font-weight: 700; color: var(--primary); white-space: nowrap; }
+  .tl-time.ct { color: var(--coral); }
+  .tl-time.gt { color: var(--green); }
+  .tl-line { width: 1.5px; flex: 1; min-height: 14px; background: var(--border); margin-top: 3px; }
+  .tl-item:last-child .tl-line { display: none; }
+  .tl-text { font-size: 0.83rem; line-height: 1.5; padding-top: 1px; flex: 1; min-width: 0; }
+  .tl-sub { font-size: 0.72rem; color: #7a8e9a; margin-top: 0.18rem; }
+  .tl-sub a { font-size: 0.72rem; }
+  .tl-note { font-size: 0.7rem; color: #7a8e9a; margin-top: 0.15rem; padding: 0.22rem 0.5rem; background: var(--bg); border-radius: 5px; display: inline-block; }
+
+  /* INFO ROWS */
+  .info-row { display: flex; gap: 0.7rem; align-items: flex-start; padding: 0.55rem 0; border-bottom: 1px solid var(--border); font-size: 0.83rem; line-height: 1.5; }
+  .info-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .info-row:first-child { padding-top: 0; }
+  .info-icon { font-size: 1rem; flex-shrink: 0; width: 20px; text-align: center; margin-top: 1px; }
+  .info-label { font-size: 0.67rem; color: var(--muted); font-weight: 500; margin-bottom: 0.1rem; }
+  a { color: var(--primary); text-decoration: none; font-weight: 500; border-bottom: 1px solid rgba(56,95,113,0.25); }
+  a:active { opacity: 0.7; }
+
+  /* NOTE */
+  .note { font-size: 0.72rem; color: #7a8e9a; margin-top: 0.22rem; padding: 0.28rem 0.6rem; background: var(--bg); border-radius: 6px; }
+
+  /* SPOT */
+  .spot { background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px; padding: 0.7rem 0.9rem; margin-top: 0.4rem; font-size: 0.8rem; line-height: 1.6; }
+  .spot strong { display: block; font-size: 0.85rem; color: var(--ink); margin-bottom: 0.2rem; }
+  .spot p { color: #5a7a90; }
+
+  /* COST */
+  .cost-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem 1rem; }
+  .cost-label { font-size: 0.7rem; color: var(--muted); margin-bottom: 0.1rem; }
+  .cost-val { font-size: 1.05rem; font-weight: 700; color: var(--ink); }
+  .cost-val sup { font-size: 0.58rem; font-weight: 400; color: var(--muted); margin-left: 2px; }
+  .cost-total { border-top: 2px solid #D7B377; padding-top: 0.7rem; grid-column: span 2; }
+  .cost-total .cost-val { font-size: 1.35rem; color: #8F754F; }
+
+  /* ── UNIFIED CARD VARIANTS ── */
+  /* base extra-card */
+  .x-card { border-radius: 14px; padding: 0; margin-bottom: 0.7rem; width: 100%; box-sizing: border-box; overflow: hidden; border: 1.5px solid; }
+  .x-card-head { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; cursor: pointer; user-select: none; list-style: none; }
+  .x-card-head::-webkit-details-marker { display: none; }
+  .x-card-title { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; flex: 1; }
+  .x-card-arrow { font-size: 0.75rem; color: inherit; opacity: 0.5; transition: transform 0.2s; }
+  details.x-card[open] .x-card-arrow { transform: rotate(90deg); }
+  .x-card-body { padding: 0 1rem 0.85rem; }
+
+  /* item row shared across all x-cards */
+  .xi { display: flex; gap: 0.7rem; align-items: flex-start; padding: 0.55rem 0; border-top: 1px solid; font-size: 0.82rem; line-height: 1.5; }
+  .xi:first-child { border-top: none; padding-top: 0; }
+  .xi-icon { font-size: 1.05rem; flex-shrink: 0; width: 22px; text-align: center; margin-top: 2px; }
+  .xi-body { flex: 1; min-width: 0; }
+  .xi-name { font-weight: 700; color: var(--ink); font-size: 0.84rem; margin-bottom: 0.1rem; }
+  .xi-desc { font-size: 0.74rem; color: #6a7a8a; line-height: 1.5; margin-top: 0.1rem; }
+  .xi-links { margin-top: 0.25rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .xi-links a, a.xi-link { font-size: 0.68rem; }
+  a.xi-link { font-size: 0.68rem; margin-top: 0.2rem; display: inline-block; margin-right: 0.4rem; }
+  .xi-tag { font-size: 0.6rem; font-weight: 700; color: #fff; border-radius: 4px; padding: 0.1rem 0.38rem; display: inline-block; margin-bottom: 0.18rem; }
+
+  /* SHOP card — gold */
+  .xc-shop { background: #f5ede0; border-color: #D7B377; }
+  .xc-shop .x-card-head { background: #f0e4cc; }
+  .xc-shop .x-card-title { color: #8F754F; }
+  .xc-shop .x-card-title::before { content: '🛍️ '; }
+  .xc-shop .xi { border-color: #e0ccaa; }
+
+  /* BRAND card — teal (from palette) */
+  .xc-brand { background: #e4edf2; border-color: #7aaabb; }
+  .xc-brand .x-card-head { background: #d8e8ef; }
+  .xc-brand .x-card-title { color: #2B4162; }
+  .xc-brand .x-card-title::before { content: '👔 '; }
+  .xc-brand .xi { border-color: #b8d0db; }
+
+  /* SPOT card — navy */
+  .xc-spot { background: #dde5ec; border-color: #7aabbd; }
+  .xc-spot .x-card-head { background: #cdd8e4; }
+  .xc-spot .x-card-title { color: #2B4162; }
+  .xc-spot .x-card-title::before { content: '📍 '; }
+  .xc-spot .xi { border-color: #aac4d4; }
+
+  /* tags */
+  .xt-soba  { background: #385F71; }
+  .xt-taco  { background: #8F754F; }
+  .xt-cafe  { background: #4a6a7a; }
+  .xt-spot  { background: #2B4162; }
+  .xt-warn  { background: #a04020; }
+  .xt-brand { background: #2B4162; }
+  .xt-tax   { background: #2B5A3A; }
+  .xt-local { background: #385F71; }
+
+  /* legacy compat – keep shop-item pointing to xi styles so old markup still renders */
+  .shop-item { display: flex; gap: 0.7rem; align-items: flex-start; padding: 0.55rem 0; border-top: 1px solid #e0ccaa; font-size: 0.82rem; line-height: 1.5; }
+  .shop-item:first-child { border-top: none; padding-top: 0; }
+  .shop-emoji { font-size: 1.05rem; flex-shrink: 0; width: 22px; text-align: center; margin-top: 2px; }
+  .shop-name { font-weight: 700; color: var(--ink); font-size: 0.84rem; margin-bottom: 0.1rem; }
+  .shop-desc { font-size: 0.74rem; color: #6a7a8a; line-height: 1.5; margin-top: 0.1rem; }
+  .shop-link { font-size: 0.68rem; margin-top: 0.2rem; display: inline-block; margin-right: 0.5rem; }
+
+  /* BOTTOM NAV */
+  .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(245,240,246,0.96); backdrop-filter: blur(16px); border-top: 1px solid var(--border); padding: 0.5rem 1rem env(safe-area-inset-bottom); display: flex; justify-content: space-around; z-index: 100; }
+  .nav-btn { display: flex; flex-direction: column; align-items: center; gap: 0.15rem; font-size: 0.58rem; color: var(--muted); font-weight: 500; cursor: pointer; padding: 0.3rem 0.8rem; border-radius: 8px; border: none; background: none; transition: color 0.15s; font-family: 'Noto Sans TC', sans-serif; }
+  .nav-btn span { font-size: 1.15rem; }
+  .nav-btn.active { color: var(--primary); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>🌊 沖繩 2026</h1>
+  <div class="hero-pill">✈️ 3月18日 — 3月24日 · 7天6夜</div>
+</div>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active"  onclick="showPage(0)" id="tab0"><div class="dn">DAY1</div><div class="de">🛫</div><div class="dd">3/18</div></button>
+    <button class="tab-btn"         onclick="showPage(1)" id="tab1"><div class="dn">DAY2</div><div class="de">🐋</div><div class="dd">3/19</div></button>
+    <button class="tab-btn"         onclick="showPage(2)" id="tab2"><div class="dn">DAY3</div><div class="de">🏪</div><div class="dd">3/20</div></button>
+    <button class="tab-btn tc"      onclick="showPage(3)" id="tab3"><div class="dn">DAY4</div><div class="de">🚗</div><div class="dd">3/21</div></button>
+    <button class="tab-btn tc"      onclick="showPage(4)" id="tab4"><div class="dn">DAY5</div><div class="de">🐠</div><div class="dd">3/22</div></button>
+    <button class="tab-btn tc"      onclick="showPage(5)" id="tab5"><div class="dn">DAY6</div><div class="de">🌉</div><div class="dd">3/23</div></button>
+    <button class="tab-btn tg"      onclick="showPage(6)" id="tab6"><div class="dn">DAY7</div><div class="de">🏠</div><div class="dd">3/24</div></button>
+    <button class="tab-btn ty"      onclick="showPage(7)" id="tab7"><div class="dn">💰</div><div class="de ty-label" style="font-size:0.75rem;font-weight:700;">開銷</div><div class="dd">&nbsp;</div></button>
+  </div>
+</div>
+
+<div class="pages">
+
+  <div class="page active" id="page0">
+    <div class="day-hero">
+      <div class="day-tag">DAY 1 · 3月18日（三）</div>
+      <div class="day-title">🛫 起飛日！</div>
+      <div class="day-sub">桃園 → 那霸</div>
+    </div>
+    <div class="card">
+      <div class="card-title">行程時刻</div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">18:20</div><div class="tl-line"></div></div><div class="tl-text">✈️ 桃園國際機場出發<div class="tl-sub">台灣時間</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">20:40</div><div class="tl-line"></div></div><div class="tl-text">🛬 抵達沖繩那霸機場<div class="tl-sub">日本時間 · 往國內線天橋搭單軌電車</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">🚇</div><div class="tl-line"></div></div><div class="tl-text">單軌 那霸空港站 → 美榮橋站<div class="tl-sub">約 15 分鐘 · ¥300 左右 → 步行 5 分鐘到飯店</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">約21:20</div><div class="tl-line"></div></div><div class="tl-text">🏨 抵達飯店 Check in</div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">晚餐</div><div class="tl-line"></div></div><div class="tl-text">🍽️ <a href="https://maps.app.goo.gl/8oYvZBkZFas16MX26" target="_blank">Kakurega Apparishan</a><div class="tl-sub">老辣妹推薦居酒屋 · 島豆腐、山苦瓜、豬肝炒豆芽</div><div class="tl-note">🎵 晚上八點有三味線表演</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">住宿</div><div class="tl-line"></div></div><div class="tl-text">🛏️ <a href="https://maps.app.goo.gl/v57uY4mJgUr1vNvu5" target="_blank">CleanHotels in Higashimachi</a></div></div>
+      </div>
+    </div>
+    <details class="x-card xc-shop">
+      <summary class="x-card-head">
+        <span class="x-card-title">買買推薦 — 國際通</span>
+        <span class="x-card-arrow">▶</span>
+      </summary>
+      <div class="x-card-body">
+        <div class="xi">
+          <div class="xi-icon">🦁</div>
+          <div class="xi-body">
+            <div class="xi-name">シーサー（守護獅子）</div>
+            <div class="xi-desc">就在國際通上的おきなわ屋本店，選擇最齊全，幾百円小紀念品到手工藝品都有，明天路過先看看。</div>
+            <div class="xi-links"><a class="xi-link" href="https://maps.app.goo.gl/dA4DsxSravmEEPgm6" target="_blank">→ 地圖</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🍬</div>
+          <div class="xi-body">
+            <div class="xi-name">雪塩ちんすこう</div>
+            <div class="xi-desc">宮古島雪塩鹹甜酥餅，15年定番，DAY2、DAY3 逛街時順手帶。</div>
+            <div class="xi-links"><a class="xi-link" href="https://www.gltjp.com/zh-hant/article/item/20916/" target="_blank">→ 物產介紹</a></div>
+          </div>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="page" id="page1">
+    <div class="day-hero">
+      <div class="day-tag">DAY 2 · 3月19日（四）</div>
+      <div class="day-title">🐋 賞鯨 + 買買買</div>
+      <div class="day-sub">國際通煮煮日 1</div>
+    </div>
+    <div class="card">
+      <div class="card-title">行程時刻</div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">7:40</div><div class="tl-line"></div></div><div class="tl-text">集合希爾頓飯店</div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">8:00</div><div class="tl-line"></div></div><div class="tl-text">🐋 <a href="https://www.berry7.com/lang/zh-TW/naha-whale" target="_blank">賞鯨出發！</a></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">下午</div><div class="tl-line"></div></div><div class="tl-text">🛍️ Cargoes Shopping Mall<div class="tl-sub">牧志站大型購物中心，地下有大超市 Union</div><div class="tl-note">🍓 要買草莓 · 建中要買衣服</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">晚餐</div><div class="tl-line"></div></div><div class="tl-text">🍳 回飯店煮煮</div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">住宿</div><div class="tl-line"></div></div><div class="tl-text">🛏️ <a href="https://maps.app.goo.gl/v57uY4mJgUr1vNvu5" target="_blank">CleanHotels in Higashimachi</a></div></div>
+      </div>
+    </div>
+    <details class="x-card xc-shop">
+      <summary class="x-card-head">
+        <span class="x-card-title">買買推薦 — UNION 超市</span>
+        <span class="x-card-arrow">▶</span>
+      </summary>
+      <div class="x-card-body">
+        <div class="xi">
+          <div class="xi-icon">🥩</div>
+          <div class="xi-body">
+            <div class="xi-name">SPAM 沖繩限定口味</div>
+            <div class="xi-desc">泡盛漬、紅麴等口味只有沖繩買得到，比觀光街便宜很多。</div>
+            <div class="xi-links"><a class="xi-link" href="https://www.gltjp.com/zh-hant/article/item/20916/" target="_blank">→ 物產介紹</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🌶️</div>
+          <div class="xi-body">
+            <div class="xi-name">シークヮーサー調味料</div>
+            <div class="xi-desc">沖繩香檸製成的醬汁、果汁、調味粉，超市最划算。</div>
+            <div class="xi-links"><a class="xi-link" href="https://www.gltjp.com/zh-hant/article/item/20916/" target="_blank">→ 物產介紹</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🍓</div>
+          <div class="xi-body">
+            <div class="xi-name">草莓（春季限定）</div>
+            <div class="xi-desc">3月正值尾聲，要買趁現在！UNION 農產品新鮮便宜。</div>
+            
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🍺</div>
+          <div class="xi-body">
+            <div class="xi-name">ORION 生啤酒</div>
+            <div class="xi-desc">沖繩在地啤酒，超市買最划算，配煮煮晚餐。</div>
+            
+          </div>
+        </div>
+      </div>
+    </details>
+    <details class="x-card xc-brand">
+      <summary class="x-card-head">
+        <span class="x-card-title">品牌備忘 — Cargoes Mall</span>
+        <span class="x-card-arrow">▶</span>
+      </summary>
+      <div class="x-card-body">
+        <div class="xi">
+          <div class="xi-icon">🗂️</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-brand">台灣便宜15–25%</span> <div class="xi-name">無印良品 MUJI</div>
+            <div class="xi-desc">棉麻T-shirt、亞麻長褲日本比台灣便宜15–25%，春季主力品項齊全。</div>
+            <div class="xi-links"><a class="xi-link" href="https://www.muji.com/jp/" target="_blank">→ 官網</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🗂️</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-brand">尺寸更全</span> <div class="xi-name">UNIQLO</div>
+            <div class="xi-desc">尺寸比台灣更齊，春季UV Protection外套、感溫纖維系列剛上新品。</div>
+            <div class="xi-links"><a class="xi-link" href="https://www.uniqlo.com/jp/" target="_blank">→ 官網</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🗂️</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-brand">台灣無部分款式</span> <div class="xi-name">H&M Studio / Premium Quality</div>
+            <div class="xi-desc">日本H&M的Studio Line有台灣找不到的色號款式，值得翻一翻。</div>
+            <div class="xi-links"><a class="xi-link" href="https://www2.hm.com/ja_jp/" target="_blank">→ 官網</a></div>
+          </div>
+        </div>
+      </div>
+    </details>
+    <details class="x-card xc-spot">
+      <summary class="x-card-head">
+        <span class="x-card-title">景點備案 — 那霸市區</span>
+        <span class="x-card-arrow">▶</span>
+      </summary>
+      <div class="x-card-body">
+        <div class="xi">
+          <div class="xi-icon">🍕</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-warn">⚠️ 需提前電話預約</span> <div class="xi-name">BACAR OKINAWA（バカール）</div>
+            <div class="xi-desc">那霸最難訂位的窯烤拿坡里披薩，縣廳前站步行4分。🕐 17:00–22:15｜火・水定休｜電話：098-863-5678</div>
+            <div class="xi-links"><a class="xi-link" href="https://maps.app.goo.gl/qjhU7G1wCLbXVhJU7" target="_blank">→ 地圖</a> <a class="xi-link" href="https://www.instagram.com/bacarokinawa" target="_blank">→ Instagram</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🌮</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-taco">TACO 飯</span> <div class="xi-name">赤とんぼ（那霸牧志）</div>
+            <div class="xi-desc">在地人長年回訪，自家製番茄底醬不用罐頭，辣味強烈。賞鯨回來後逛UNION前順路。</div>
+            <div class="xi-links"><a class="xi-link" href="https://maps.app.goo.gl/hHoQMEMdKPXtjyNK8" target="_blank">→ 地圖</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">☕</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-cafe">咖啡屋台</span> <div class="xi-name">珈琲屋台 ひばり屋（牧志）</div>
+            <div class="xi-desc">一人屋台，木樹圍繞像秘密基地，手沖咖啡¥500。🕐 11:30–19:00｜雨天公休</div>
+            <div class="xi-links"><a class="xi-link" href="https://maps.app.goo.gl/cM4wVZ1qajSJLcSu6" target="_blank">→ 地圖</a> <a class="xi-link" href="https://twitter.com/hibariyasachiko" target="_blank">→ Twitter確認營業</a></div>
+          </div>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="page" id="page2">
+    <div class="day-hero">
+      <div class="day-tag">DAY 3 · 3月20日（五）</div>
+      <div class="day-title">🏪 牧志市場 + 浮島通</div>
+      <div class="day-sub">國際通煮煮日 2</div>
+    </div>
+    <div class="card">
+      <div class="card-title">行程時刻</div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">上午</div><div class="tl-line"></div></div><div class="tl-text">🏪 第一牧志公設市場<div class="tl-sub">代客烹調，選好食材請市場料理</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">下午</div><div class="tl-line"></div></div><div class="tl-text">🛍️ 浮島通散步<div class="tl-sub">國際通後面的小店街，逛逛選物店、咖啡廳</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">晚餐</div><div class="tl-line"></div></div><div class="tl-text">🍽️ <a href="https://maps.app.goo.gl/AWtPUQzuEamzFh9DA" target="_blank">沖縄料理 うりずん</a></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">宵夜</div><div class="tl-line"></div></div><div class="tl-text">🍳 回飯店煮煮</div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">住宿</div><div class="tl-line"></div></div><div class="tl-text">🛏️ <a href="https://maps.app.goo.gl/v57uY4mJgUr1vNvu5" target="_blank">CleanHotels in Higashimachi</a></div></div>
+      </div>
+    </div>
+    <details class="x-card xc-shop">
+      <summary class="x-card-head">
+        <span class="x-card-title">買買推薦 — 浮島通 + 國際通</span>
+        <span class="x-card-arrow">▶</span>
+      </summary>
+      <div class="x-card-body">
+        <div class="xi">
+          <div class="xi-icon">🏺</div>
+          <div class="xi-body">
+            <div class="xi-name">やちむん（琉球陶器）</div>
+            <div class="xi-desc">浮島通選物店最密集，厚實手感琉球紋樣，幾乎件件手工。</div>
+            <div class="xi-links"><a class="xi-link" href="https://www.gltjp.com/zh-hant/article/item/20916/" target="_blank">→ 物產介紹</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🫙</div>
+          <div class="xi-body">
+            <div class="xi-name">元祖 紅いもタルト</div>
+            <div class="xi-desc">連續6年蒙地卡羅金獎，100%沖繩紅番薯泥塔，國際通有門市。</div>
+            <div class="xi-links"><a class="xi-link" href="https://www.gltjp.com/zh-hant/article/item/20916/" target="_blank">→ 物產介紹</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🌊</div>
+          <div class="xi-body">
+            <div class="xi-name">琉球ガラス</div>
+            <div class="xi-desc">回收玻璃手工吹製，氣泡色澤不均是特色，每件獨一無二。</div>
+            <div class="xi-links"><a class="xi-link" href="https://www.gltjp.com/zh-hant/article/item/20916/" target="_blank">→ 物產介紹</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">☕</div>
+          <div class="xi-body">
+            <div class="xi-name">35COFFEE（珊瑚烘焙咖啡）</div>
+            <div class="xi-desc">沖繩風化珊瑚烘焙，縣外買不到，部分營收回饋珊瑚復育。</div>
+            <div class="xi-links"><a class="xi-link" href="https://www.35coffee.com" target="_blank">→ 官網</a></div>
+          </div>
+        </div>
+      </div>
+    </details>
+    <details class="x-card xc-brand">
+      <summary class="x-card-head">
+        <span class="x-card-title">品牌備忘 — 國際通周邊</span>
+        <span class="x-card-arrow">▶</span>
+      </summary>
+      <div class="x-card-body">
+        <div class="xi">
+          <div class="xi-icon">🗂️</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-brand">台灣無門市</span> <div class="xi-name">BEAMS（ビームス）</div>
+            <div class="xi-desc">日本最代表性select shop，open collar shirt剪裁細膩，台灣無門市比代購省20–30%。</div>
+            <div class="xi-links"><a class="xi-link" href="https://www.beams.co.jp/" target="_blank">→ 官網</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🗂️</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-brand">台灣無門市</span> <div class="xi-name">niko and...（ニコアンド）</div>
+            <div class="xi-desc">生活方式品牌，簡約寬鬆版型，春季棉麻系列好逛，比台灣代購便宜。</div>
+            <div class="xi-links"><a class="xi-link" href="https://nikoand.jp/" target="_blank">→ 官網</a></div>
+          </div>
+        </div>
+      </div>
+    </details>
+    <details class="x-card xc-spot">
+      <summary class="x-card-head">
+        <span class="x-card-title">景點備案 — 那霸市區</span>
+        <span class="x-card-arrow">▶</span>
+      </summary>
+      <div class="x-card-body">
+        <div class="xi">
+          <div class="xi-icon">🍜</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-soba">沖繩麵</span> <div class="xi-name">OKINAWA SOBA EIBUN（牧志）</div>
+            <div class="xi-desc">法式主廚改做創作沖繩麵，加帕克香草的獨特湯頭，國際通步行7分。🕐 11:00–20:00｜年中無休</div>
+            <div class="xi-links"><a class="xi-link" href="https://maps.app.goo.gl/2jy9q3ckrPVGhVWU8" target="_blank">→ 地圖</a> <a class="xi-link" href="https://www.instagram.com/soba_eibun" target="_blank">→ Instagram</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🍜</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-soba">沖繩麵</span> <div class="xi-name">首里そば（首里）</div>
+            <div class="xi-desc">湯頭清澈鮮甜、手打麵條彈牙，每天賣完即關。搭單軌去首里站步行即達。🕐 11:30開始・售完｜木・日定休</div>
+            <div class="xi-links"><a class="xi-link" href="https://maps.app.goo.gl/4hGWtjBaLSNFiJV76" target="_blank">→ 地圖</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🍕</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-warn">⚠️ 需提前預約</span> <div class="xi-name">BACAR OKINAWA（バカール）</div>
+            <div class="xi-desc">今晚或明晚晚餐選項，DAY1抵達即可電話預約。🕐 17:00–22:15｜火・水定休｜TEL:098-863-5678</div>
+            <div class="xi-links"><a class="xi-link" href="https://maps.app.goo.gl/qjhU7G1wCLbXVhJU7" target="_blank">→ 地圖</a></div>
+          </div>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="page ct" id="page3">
+    <div class="day-hero ct">
+      <div class="day-tag ct">DAY 4 · 3月21日（六）</div>
+      <div class="day-title">🚗 自駕 GOGO！</div>
+      <div class="day-sub">往北部出發</div>
+    </div>
+    <div class="card">
+      <div class="card-title">行程時刻</div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-left"><div class="tl-time ct">10:00</div><div class="tl-line"></div></div><div class="tl-text">🏨 Check out + 取車<div class="tl-sub">Relax Car Rental</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time ct">🚗</div><div class="tl-line"></div></div><div class="tl-text">飯店 → 波上宮<div class="tl-sub">步行約 5 分鐘（飯店在國際通附近）</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time ct">上午</div><div class="tl-line"></div></div><div class="tl-text">⛩️ 波上宮<div class="tl-sub">縣廳前站步行 10 分鐘 / 旭橋站步行 15 分鐘</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time ct">🚗</div><div class="tl-line"></div></div><div class="tl-text">波上宮 → 敘敘苑（浦添 PARCO）<div class="tl-sub">開車約 15 分鐘</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time ct">午餐</div><div class="tl-line"></div></div><div class="tl-text">🥩 <a href="https://maps.app.goo.gl/yfArqyzXHrqC43Pw7" target="_blank">敘敘苑 沖繩浦添PARCO CITY店</a><div class="tl-note">⚠️ 無法網路訂位，取完車後直接開過去</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time ct">🚗</div><div class="tl-line"></div></div><div class="tl-text">浦添 → 港川外人住宅<div class="tl-sub">開車約 10 分鐘</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time ct">下午</div><div class="tl-line"></div></div><div class="tl-text">🏘️ 港川外人住宅<div class="tl-sub">美軍宿舍改建的文青小聚落，各州街道命名</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time ct">🚗</div><div class="tl-line"></div></div><div class="tl-text">港川 → 美國村<div class="tl-sub">開車約 10 分鐘</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time ct">下午</div><div class="tl-line"></div></div><div class="tl-text">🎡 美國村<div class="tl-sub">購物、拍夕陽！</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time ct">🚗</div><div class="tl-line"></div></div><div class="tl-text">美國村 → 今歸仁飯店<div class="tl-sub">開車約 1 小時（走高速）</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time ct">15:00</div><div class="tl-line"></div></div><div class="tl-text">🏨 <a href="https://maps.app.goo.gl/sgyEJB8Somd2aBQq7" target="_blank">海洋今歸仁飯店</a> Check in<div class="tl-note">🏪 最近的 Lawson 在 2.4 公里外</div></div></div>
+      </div>
+    </div>
+    <details class="x-card xc-shop">
+      <summary class="x-card-head">
+        <span class="x-card-title">買買推薦 — 港川 + 美國村</span>
+        <span class="x-card-arrow">▶</span>
+      </summary>
+      <div class="x-card-body">
+        <div class="xi">
+          <div class="xi-icon">👗</div>
+          <div class="xi-body">
+            <div class="xi-name">港川外人住宅の選物店</div>
+            <div class="xi-desc">每棟平房獨立小店，本地設計師選品，建中買衣服的好地方。比國際通更有個性。</div>
+            <div class="xi-links"><a class="xi-link" href="https://maps.app.goo.gl/XjDBATQSucXVuLob8" target="_blank">→ 地圖</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🧁</div>
+          <div class="xi-body">
+            <div class="xi-name">Blue Seal 冰淇淋（美國村）</div>
+            <div class="xi-desc">1948年美軍基地起家，紅薯・鹽味焦糖沖繩限定，逛街時必吃。</div>
+            <div class="xi-links"><a class="xi-link" href="https://www.gltjp.com/zh-hant/article/item/20916/" target="_blank">→ 物產介紹</a></div>
+          </div>
+        </div>
+      </div>
+    </details>
+    <details class="x-card xc-brand">
+      <summary class="x-card-head">
+        <span class="x-card-title">品牌備忘 — 港川 + PARCO CITY</span>
+        <span class="x-card-arrow">▶</span>
+      </summary>
+      <div class="x-card-body">
+        <div class="xi">
+          <div class="xi-icon">🏘️</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-local">港川限定氣氛</span> <div class="xi-name">港川選物店（獨立品牌）</div>
+            <div class="xi-desc">常見選入 Needles、nanamica、COMOLI 等版型乾淨日本小眾品牌，台灣幾乎找不到，試穿好再買（不接受退換）。</div>
+            <div class="xi-links"><a class="xi-link" href="https://maps.app.goo.gl/XjDBATQSucXVuLob8" target="_blank">→ 地圖</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🗂️</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-brand">台灣無門市</span> <div class="xi-name">EDIFICE（エディフィス）— PARCO CITY</div>
+            <div class="xi-desc">Baycrews旗下成熟簡約，針織・trousers・襯衫剪裁工整，台灣無門市。</div>
+            <div class="xi-links"><a class="xi-link" href="https://www.edifice.jp/" target="_blank">→ 官網</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🗂️</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-brand">台灣無門市</span> <div class="xi-name">UNITED ARROWS green label relaxing — PARCO CITY</div>
+            <div class="xi-desc">T-shirt ¥4,000–8,000，剪裁比UNIQLO更有型，台灣無實體門市。</div>
+            <div class="xi-links"><a class="xi-link" href="https://greenlabelrelaxing.com/" target="_blank">→ 官網</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">💳</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-tax">退稅提醒</span> <div class="xi-name">PARCO CITY 有免稅服務</div>
+            <div class="xi-desc">單次消費¥5,000以上可辦退稅，記得帶護照，服務台一次彙整辦理。</div>
+            <div class="xi-links"><a class="xi-link" href="https://www.parcocity.jp/facilities#duty-free" target="_blank">→ 退稅說明</a></div>
+          </div>
+        </div>
+      </div>
+    </details>
+    <details class="x-card xc-spot">
+      <summary class="x-card-head">
+        <span class="x-card-title">景點備案 — 北上途中・美國村</span>
+        <span class="x-card-arrow">▶</span>
+      </summary>
+      <div class="x-card-body">
+        <div class="xi">
+          <div class="xi-icon">🌮</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-taco">TACO飯・發祥地！</span> <div class="xi-name">キングタコス 金武本店</div>
+            <div class="xi-desc">1984年Taco飯誕生地，北上高速金武IC下8分。招牌チーズ野菜¥600份量驚人。🕐 10:30–21:00</div>
+            <div class="xi-links"><a class="xi-link" href="https://maps.app.goo.gl/nkNFGmn9g6yN5abJ9" target="_blank">→ 地圖</a> <a class="xi-link" href="https://kingtacos.com/" target="_blank">→ 官網</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🍔</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-spot">漢堡</span> <div class="xi-name">GORDIES OLD HOUSE（嘉手納町）</div>
+            <div class="xi-desc">嘉手納基地對面的老派美式漢堡，美軍也常來，手工厚切漢堡¥1,000–1,999。🕐 11:00–20:00</div>
+            <div class="xi-links"><a class="xi-link" href="https://maps.app.goo.gl/hGhMqdGhEJyMnNBr7" target="_blank">→ 地圖</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">☕</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-cafe">海景咖啡</span> <div class="xi-name">ZHYVAGO COFFEE WORKS（美國村）</div>
+            <div class="xi-desc">美國村海邊工業風，面海景，拍夕陽前喝咖啡的好地方。🕐 8:00–20:00</div>
+            <div class="xi-links"><a class="xi-link" href="https://maps.app.goo.gl/Cai6VhpNhKVJe9WT9" target="_blank">→ 地圖</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🍫</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-cafe">Bean to Bar</span> <div class="xi-name">TIMELESS CHOCOLATE（美國村）</div>
+            <div class="xi-desc">同棟2F，沖繩首家Bean to Bar，只用可可豆和沖繩甘蔗，每片口感不同，也可當伴手禮。🕐 11:00–19:00</div>
+            <div class="xi-links"><a class="xi-link" href="https://maps.app.goo.gl/YRrKhkXKNbZVfxf49" target="_blank">→ 地圖</a></div>
+          </div>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="page ct" id="page4">
+    <div class="day-hero ct">
+      <div class="day-tag ct">DAY 5 · 3月22日（日）</div>
+      <div class="day-title">🐠 美麗海水族館 + 福木並木</div>
+      <div class="day-sub">自駕北部遊 第一天</div>
+    </div>
+    <div class="card">
+      <div class="card-title">行程時刻</div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">早餐</div><div class="tl-line"></div></div><div class="tl-text">🍱 飯店日式早餐<div class="tl-sub">ct</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time ct">🚗</div><div class="tl-line"></div></div><div class="tl-text">今歸仁飯店 → 美麗海水族館<div class="tl-sub">開車約 20 分鐘</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time ct">上午</div><div class="tl-line"></div></div><div class="tl-text">🐠 美麗海水族館<div class="tl-sub">停車場免費 · 建議預留 2–3 小時</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time ct">🚗</div><div class="tl-line"></div></div><div class="tl-text">水族館 → 備瀬フクギ並木<div class="tl-sub">開車約 5 分鐘（超近！）</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">下午</div><div class="tl-line"></div></div><div class="tl-text">🌳 備瀬のフクギ並木<div class="tl-sub">老辣妹私房景點 · 可坐牛車、騎單車</div><div class="tl-note">🅿️ 入口免費停車位有限，旁邊有收費停車場</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time ct">🚗</div><div class="tl-line"></div></div><div class="tl-text">備瀬 → 肉久 名護店<div class="tl-sub">開車約 25 分鐘</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time ct">19:30</div><div class="tl-line"></div></div><div class="tl-text">🍲 <a href="https://maps.app.goo.gl/XMUkgHS8vy67csFw6" target="_blank">涮涮鍋 肉久 名護店</a><div class="tl-sub">Josh 推薦的阿古豬涮涮鍋 超好ㄘ</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">住宿</div><div class="tl-line"></div></div><div class="tl-text">🛏️ <a href="https://maps.app.goo.gl/sgyEJB8Somd2aBQq7" target="_blank">海洋今歸仁飯店</a><div class="tl-sub">ct</div></div></div>
+      </div>
+    </div>
+    <details class="x-card xc-shop">
+      <summary class="x-card-head">
+        <span class="x-card-title">買買推薦 — 水族館周邊</span>
+        <span class="x-card-arrow">▶</span>
+      </summary>
+      <div class="x-card-body">
+        <div class="xi">
+          <div class="xi-icon">🐋</div>
+          <div class="xi-body">
+            <div class="xi-name">水族館限定周邊商品</div>
+            <div class="xi-desc">鯨鯊、儒艮造型文具玩具毛巾，只有館內店才買得到。</div>
+            <div class="xi-links"><a class="xi-link" href="https://churaumi.okinawa/en/floor/shop/" target="_blank">→ 館內Shop</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🍍</div>
+          <div class="xi-body">
+            <div class="xi-name">名護パイナップルパーク 鳳梨製品</div>
+            <div class="xi-desc">水族館附近，鳳梨酒・醬・乾等北部特產，沿路可順便停。</div>
+            <div class="xi-links"><a class="xi-link" href="https://www.gltjp.com/zh-hant/article/item/20546/" target="_blank">→ 介紹</a></div>
+          </div>
+        </div>
+      </div>
+    </details>
+    <details class="x-card xc-spot">
+      <summary class="x-card-head">
+        <span class="x-card-title">景點備案 — 今歸仁・北部</span>
+        <span class="x-card-arrow">▶</span>
+      </summary>
+      <div class="x-card-body">
+        <div class="xi">
+          <div class="xi-icon">🍜</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-soba">沖繩麵</span> <div class="xi-name">今帰仁そば（今歸仁村）</div>
+            <div class="xi-desc">2025年3月被老顧客以原汁原味重新復活的傳奇麵店。阿古豬と柴魚熬製湯頭，就在備瀬旁邊可連排。🕐 11:00–16:30｜售完即止</div>
+            <div class="xi-links"><a class="xi-link" href="https://maps.app.goo.gl/KH3rMF4p1k7VN1hk8" target="_blank">→ 地圖</a> <a class="xi-link" href="https://www.nakijinsoba.jp/" target="_blank">→ 官網</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🍜</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-soba">沖繩麵</span> <div class="xi-name">てつこのそば（今歸仁村）</div>
+            <div class="xi-desc">古民家改裝像到阿嬤家。三枚肉そば給五片肉（一般店只給三片）！🕐 11:00–15:00｜售完即止</div>
+            <div class="xi-links"><a class="xi-link" href="https://maps.app.goo.gl/KqXFCRpvHMqUSmYm9" target="_blank">→ 地圖</a></div>
+          </div>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="page ct" id="page5">
+    <div class="day-hero ct">
+      <div class="day-tag ct">DAY 6 · 3月23日（一）</div>
+      <div class="day-title">🌉 古宇利島 + 海中展望塔</div>
+      <div class="day-sub">自駕北部遊 第二天</div>
+    </div>
+    <div class="card">
+      <div class="card-title">行程時刻</div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">早餐</div><div class="tl-line"></div></div><div class="tl-text">🍱 飯店日式早餐<div class="tl-sub">ct</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">10:00</div><div class="tl-line"></div></div><div class="tl-text">🏨 海洋今歸仁飯店 Check out<div class="tl-sub">ct</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time ct">🚗</div><div class="tl-line"></div></div><div class="tl-text">今歸仁飯店 → 古宇利島<div class="tl-sub">開車約 15–20 分鐘</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time ct">上午</div><div class="tl-line"></div></div><div class="tl-text">🌉 古宇利島<div class="tl-sub">古宇利大橋 · 心形岩 · 蝦蝦飯</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time ct">🚗</div><div class="tl-line"></div></div><div class="tl-text">古宇利島 → 部瀨名海中公園<div class="tl-sub">開車約 40 分鐘（沿海岸線南下）</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time ct">下午</div><div class="tl-line"></div></div><div class="tl-text">🔭 部瀨名海中公園（海中展望塔）<div class="tl-sub">水下 5 公尺的玻璃展望窗，看熱帶魚珊瑚</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time ct">🚗</div><div class="tl-line"></div></div><div class="tl-text">部瀨名 → 那霸市區<div class="tl-sub">開車約 1 小時（走高速）</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">15:00</div><div class="tl-line"></div></div><div class="tl-text">🏨 <a href="https://maps.app.goo.gl/rRvbmL4YZwSZxJiy6" target="_blank">Naha Tokyu REI Hotel</a> Check in<div class="tl-sub">ct</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">19:00</div><div class="tl-line"></div></div><div class="tl-text">🚗 還車<div class="tl-sub">ct</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">晚餐</div><div class="tl-line"></div></div><div class="tl-text">🥩 <a href="https://maps.app.goo.gl/tKAibKLBFh1wa5Qo8" target="_blank">七輪燒肉安安 牧志站前店</a><div class="tl-sub">ct</div></div></div>
+      </div>
+    </div>
+    <details class="x-card xc-shop">
+      <summary class="x-card-head">
+        <span class="x-card-title">買買推薦 — 古宇利島 + 道の駅</span>
+        <span class="x-card-arrow">▶</span>
+      </summary>
+      <div class="x-card-body">
+        <div class="xi">
+          <div class="xi-icon">🌉</div>
+          <div class="xi-body">
+            <div class="xi-name">古宇利島限定伴手禮</div>
+            <div class="xi-desc">島上小店有只在當地販售的海鹽、珊瑚主題飾品等，離開後就找不到。</div>
+            <div class="xi-links"><a class="xi-link" href="https://maps.app.goo.gl/3QoCVQqwVfxVuQi5A" target="_blank">→ 地圖</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🏪</div>
+          <div class="xi-body">
+            <div class="xi-name">道の駅 許田（名護）— 強烈推薦！</div>
+            <div class="xi-desc">全國道之驛人氣排名第一，北部農產・黑糖・泡盛・手工點心直售，南下必停。</div>
+            <div class="xi-links"><a class="xi-link" href="https://maps.app.goo.gl/VkpHy9zqzDuphkf38" target="_blank">→ 地圖</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🫙</div>
+          <div class="xi-body">
+            <div class="xi-name">ふくぎや 黒糖バウムクーヘン</div>
+            <div class="xi-desc">黑糖蜂蜜手工年輪蛋糕超過20層，質地濕潤。道の駅現做版最新鮮。</div>
+            <div class="xi-links"><a class="xi-link" href="https://www.gltjp.com/zh-hant/article/item/20916/" target="_blank">→ 物產介紹</a></div>
+          </div>
+        </div>
+      </div>
+    </details>
+    <details class="x-card xc-spot">
+      <summary class="x-card-head">
+        <span class="x-card-title">景點備案 — 南下途中</span>
+        <span class="x-card-arrow">▶</span>
+      </summary>
+      <div class="x-card-body">
+        <div class="xi">
+          <div class="xi-icon">🌉</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-spot">景點</span> <div class="xi-name">海中道路（うるま市）</div>
+            <div class="xi-desc">5km跨海公路兩側翡翠色海面，免費通行，中途可停「海の駅あやはし館」買特產，書中列為必看。繞道約+30分。🕐 あやはし館 7:00–22:00</div>
+            <div class="xi-links"><a class="xi-link" href="https://maps.app.goo.gl/4SKnhCBRs1mRPn7P9" target="_blank">→ 地圖</a> <a class="xi-link" href="https://uruma-ru.jp/see/sea-road/" target="_blank">→ 官方介紹</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">☕</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-cafe">海景咖啡</span> <div class="xi-name">Cafe やぶさち（南城市）</div>
+            <div class="xi-desc">斋場御嶽旁的絕景海景咖啡，大片落地窗望太平洋，義式料理午餐+甜點。3/23週一可以去。🕐 9:00起｜月曜定休（✅3/23 OK）</div>
+            <div class="xi-links"><a class="xi-link" href="https://maps.app.goo.gl/Y6VkGmbBezYLK3nf7" target="_blank">→ 地圖</a> <a class="xi-link" href="https://cafe-yabusachi.com/" target="_blank">→ 官網</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🍜</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-soba">沖繩麵</span> <div class="xi-name">きしもと食堂（本部町）</div>
+            <div class="xi-desc">1905年（明治38年）創業，木灰水製麵口感截然不同，菜單極簡只有大小和炊飯。古宇利島出來往南直接順路。🕐 11:00–17:30頃｜水曜定休（✅3/23 OK）</div>
+            <div class="xi-links"><a class="xi-link" href="https://maps.app.goo.gl/hWQFbVwjfFHa9AzK7" target="_blank">→ 地圖</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🌮</div>
+          <div class="xi-body">
+            <span class="xi-tag xt-taco">TACO 飯</span> <div class="xi-name">和タコス（名護市）</div>
+            <div class="xi-desc">名護市區人氣店，鹽味タコミート清爽不死鹹，女生很好接受。部瀬名回那霸前順路。🕐 11:00–19:00｜水曜定休（✅3/23 OK）</div>
+            <div class="xi-links"><a class="xi-link" href="https://maps.app.goo.gl/xTb4v8p24bWMKWCE8" target="_blank">→ 地圖</a></div>
+          </div>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="page gt" id="page6">
+    <div class="day-hero gt">
+      <div class="day-tag gt">DAY 7 · 3月24日（二）</div>
+      <div class="day-title">🏠 平安回家</div>
+      <div class="day-sub">那霸 → 桃園</div>
+    </div>
+    <div class="card">
+      <div class="card-title">行程時刻</div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-left"><div class="tl-time">早餐</div><div class="tl-line"></div></div><div class="tl-text">🍳 那霸東急 REI 飯店早餐<div class="tl-sub">gt</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time gt">🚇</div><div class="tl-line"></div></div><div class="tl-text">單軌 壺川站 → 那霸空港站<div class="tl-sub">約 10 分鐘 · 建議提早 2 小時到機場</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time gt">9:45</div><div class="tl-line"></div></div><div class="tl-text">✈️ 沖繩那霸機場出發<div class="tl-sub">日本時間 · 虎航</div></div></div>
+        <div class="tl-item"><div class="tl-left"><div class="tl-time gt">10:20</div><div class="tl-line"></div></div><div class="tl-text">🛬 抵達桃園國際機場<div class="tl-sub">台灣時間</div></div></div>
+      </div>
+    </div>
+    <details class="x-card xc-shop">
+      <summary class="x-card-head">
+        <span class="x-card-title">最後補貨 — 那霸機場</span>
+        <span class="x-card-arrow">▶</span>
+      </summary>
+      <div class="x-card-body">
+        <div class="xi">
+          <div class="xi-icon">🍬</div>
+          <div class="xi-body">
+            <div class="xi-name">雪塩さんど（機場限定包裝）</div>
+            <div class="xi-desc">機場有限定禮盒包裝，比國際通更好看，適合帶回去分享。</div>
+            <div class="xi-links"><a class="xi-link" href="https://www.gltjp.com/zh-hant/article/item/20916/" target="_blank">→ 物產介紹</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🍵</div>
+          <div class="xi-body">
+            <div class="xi-name">バタフライピー茶（蝶豆花茶）</div>
+            <div class="xi-desc">沖繩特產，加檸檬汁後由藍變紫，機場有瓶裝和茶包。</div>
+            <div class="xi-links"><a class="xi-link" href="https://www.gltjp.com/zh-hant/article/item/20916/" target="_blank">→ 物產介紹</a></div>
+          </div>
+        </div>
+        <div class="xi">
+          <div class="xi-icon">🥃</div>
+          <div class="xi-body">
+            <div class="xi-name">泡盛（古酒 クース）</div>
+            <div class="xi-desc">熟成3年以上的古酒香氣更醇，機場免稅店最划算。推薦瑞泉・菊之露。</div>
+            <div class="xi-links"><a class="xi-link" href="https://www.gltjp.com/zh-hant/article/item/20916/" target="_blank">→ 物產介紹</a></div>
+          </div>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="page" id="page7">
+    <div class="day-hero yt">
+      <div class="day-tag yt">💰 費用明細</div>
+      <div class="day-title">主要開銷</div>
+      <div class="day-sub">每人預估費用（TWD）</div>
+    </div>
+    <div class="card">
+      <div class="card-title">費用明細</div>
+      <div class="cost-grid">
+        <div><div class="cost-label">來回機票</div><div class="cost-val">11,574 <sup>TWD</sup></div></div>
+        <div><div class="cost-label">CleanHotels（3晚）</div><div class="cost-val">3,271 <sup>TWD</sup></div></div>
+        <div><div class="cost-label">海洋今歸仁飯店</div><div class="cost-val">4,274 <sup>TWD</sup></div></div>
+        <div><div class="cost-label">Naha Tokyu REI Hotel</div><div class="cost-val">2,598 <sup>TWD</sup></div></div>
+        <div><div class="cost-label">租車費用</div><div class="cost-val">2,685 <sup>TWD</sup></div></div>
+        <div class="cost-total"><div class="cost-label">合計（機票+住宿+租車）</div><div class="cost-val" style="color:#8F754F;">24,402 <sup>TWD</sup></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="nav-btn active" onclick="scrollToTop()"><span>⬆️</span>回頂</button>
+  <button class="nav-btn" onclick="openMap()"><span>🗺️</span>地圖</button>
+  <button class="nav-btn" onclick="prevDay()"><span>◀</span>上一天</button>
+  <button class="nav-btn" onclick="nextDay()"><span>▶</span>下一天</button>
+</div>
+
+<script>
+  let cur = 0;
+  const N = 8;
+
+  function showPage(n) {
+    cur = n;
+    document.querySelectorAll('.page').forEach((p, i) => p.classList.toggle('active', i === n));
+    document.querySelectorAll('.tab-btn').forEach((t, i) => t.classList.toggle('active', i === n));
+    const tab = document.getElementById('tab' + n);
+    if (tab) tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
+
+  // ensure correct initial state
+  document.addEventListener('DOMContentLoaded', () => showPage(0));
+
+  function prevDay() { if (cur > 0) showPage(cur - 1); }
+  function nextDay() { if (cur < N - 1) showPage(cur + 1); }
+  function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  function openMap() { window.open('https://maps.google.com/maps?q=Naha,+Okinawa,+Japan', '_blank'); }
+
+  let sx = 0;
+  document.addEventListener('touchstart', e => { sx = e.touches[0].clientX; });
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dx) > 55) dx < 0 ? nextDay() : prevDay();
+  });
+</script>
+</body>
+</html>
